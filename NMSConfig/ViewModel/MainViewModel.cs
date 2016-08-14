@@ -5,6 +5,7 @@ using System.Windows.Input;
 using System.Xml.Serialization;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
+using NMSConfig.Mxml;
 using NMSConfig.Properties;
 
 namespace NMSConfig.ViewModel
@@ -61,18 +62,7 @@ namespace NMSConfig.ViewModel
 
         private void SaveCommandAction()
         {
-            XmlSerializer mXmlSerializer = new XmlSerializer(typeof(MxmlData));
-
-            XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-            ns.Add("", "");
-
-
-            using (Stream fileStream = File.Open(this.SelectedMxmlFile, FileMode.Create))
-        
-            {
-                mXmlSerializer.Serialize(fileStream, this.MxmlData, ns);
-            }
-
+            MxmlSerializer.Serialize(this.MxmlData, this.SelectedMxmlFile);
         }
 
         public ICommand BrowseForExeCommand { get; private set; }
@@ -118,15 +108,7 @@ namespace NMSConfig.ViewModel
             {
                 if (File.Exists(path))
                 {
-                    XmlSerializer mXmlSerializer = new XmlSerializer(typeof(MxmlData));
-
-                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                    ns.Add("", "");
-
-                    using (var stream = File.OpenRead(path))
-                    {
-                        this.MxmlData = mXmlSerializer.Deserialize(stream) as MxmlData;
-                    }
+                    this.MxmlData = MxmlSerializer.Deserialize(path);
                 }
             }
         }
