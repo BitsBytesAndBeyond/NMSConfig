@@ -67,6 +67,40 @@ namespace NMSConfig.ViewModel
 
         public ICommand BrowseForExeCommand { get; private set; }
 
+        private void QuickSet(string template, string name, string value)
+        {
+            string fileName = $"{template.ToUpperInvariant()}.MXML";
+
+            var settingsDirectory = GetSettingsDirectory();
+
+            string path = Path.Combine(settingsDirectory, fileName);
+        }
+
+        public string QuickGet(string template, string name)
+        {
+            string fileName = $"{template.ToUpperInvariant()}.MXML";
+
+            var settingsDirectory = GetSettingsDirectory();
+
+            string path = Path.Combine(settingsDirectory, fileName);
+
+            return null;
+        }
+
+        private string GetSettingsDirectory()
+        {
+            if (System.IO.File.Exists(Settings.Default.ExePath))
+            {
+                string exeDirectory = Path.GetDirectoryName(Settings.Default.ExePath);
+
+                var settingsDirectory = Path.Combine(exeDirectory, "SETTINGS");
+
+                return settingsDirectory;
+            }
+
+            return null;
+        }
+
         private void ReloadMxmlFiles()
         {
             this.SelectedMxmlFile = null;
@@ -76,9 +110,7 @@ namespace NMSConfig.ViewModel
 
             if (System.IO.File.Exists(Settings.Default.ExePath))
             {
-                string directory = Path.GetDirectoryName(Settings.Default.ExePath);
-
-                var settingsDirectory = Path.Combine(directory, "SETTINGS");
+                var settingsDirectory = this.GetSettingsDirectory();
 
                 var files = Directory.EnumerateFiles(settingsDirectory, "*.MXML", SearchOption.TopDirectoryOnly);
 

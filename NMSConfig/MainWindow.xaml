@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NMSConfig"
         mc:Ignorable="d"
-        Title="NMSConfig" Height="350" Width="525" Loaded="MainWindow_OnLoaded" DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
+        Title="NMSConfig" Height="350" Width="525"
+        Icon="no_mans_sky_atlas_icon_Oaw_icon.ico"
+        Loaded="MainWindow_OnLoaded" DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     
     <DockPanel>
         <Menu DockPanel.Dock="Top">
