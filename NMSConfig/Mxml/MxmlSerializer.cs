@@ -12,6 +12,8 @@ namespace NMSConfig.Mxml
             XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
             ns.Add("", "");
 
+            // remove any empty properties.
+            mxmlData.Property.RemoveAll(property => string.IsNullOrWhiteSpace(property.Name));
 
             using (Stream fileStream = File.Open(path, FileMode.Create))
 
